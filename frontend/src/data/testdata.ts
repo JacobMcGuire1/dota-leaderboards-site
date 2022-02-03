@@ -13,12 +13,13 @@ function getRandomTestData(players: number, teams: number, timestamps: number) :
     
     for (let i = 0; i < timestamps; i++){
             playerteamlist.forEach(player => {
-            let player1: DataPoint = {
-                playername: player[0],
-                team: player[1],
-                rank: randomInteger(1, 10),
-                timestamp: i
-            };
+                let datapoint: DataPoint = {
+                    team: player[0],
+                    playername: player[1],
+                    rank: randomInteger(1, 10),
+                    timestamp: i
+                };
+                datapoints.push(datapoint);
         });
     }
     

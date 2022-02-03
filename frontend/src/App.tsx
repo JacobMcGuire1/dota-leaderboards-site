@@ -7,9 +7,9 @@ import {getRandomTestData} from './data/testdata'
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+      <div className="main">
         <Graph dataset={getRandomTestData(0, 0, 10)}/>
-      </header>
+      </div>
     </div>
   );
 }
