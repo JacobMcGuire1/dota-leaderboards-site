@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <div>
-        <Graph dataset={getRandomTestData(5, 5, 10)}/>
+        <Graph dataset={getRandomTestData(5, 5, 100)}/>
       </div>
     </div>
   );

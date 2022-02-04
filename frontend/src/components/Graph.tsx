@@ -93,7 +93,7 @@ class Graph extends React.Component<Props, State>{
             },
             theme: "dark1",
             animationEnabled: true,
-            zoomenabled: true,
+            zoomEnabled: true,
             backgroundColor: "#282c34",
             data: this.getLines(),
             axisY:[{
