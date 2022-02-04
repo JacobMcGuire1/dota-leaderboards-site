@@ -55,16 +55,16 @@ class Graph extends React.Component<Props, State>{
             ]}]
     }
     private getLines(): any {
-        let linedict = new Map<string, {team: string, playername: string, points: {x: number, y: number}[]}>();
+        let linedict = new Map<string, {team: string, playername: string, points: {x: Date, y: number}[]}>();
         this.props.dataset.forEach(
             datapoint => {
                 let key = datapoint.team + "." + datapoint.playername;
                 if (!linedict.has(key)) {
-                    linedict.set(key, {team: datapoint.team, playername: datapoint.playername, points: [{x: datapoint.timestamp, y: datapoint.rank}]})
+                    linedict.set(key, {team: datapoint.team, playername: datapoint.playername, points: [{x: new Date(datapoint.timestamp * 1000), y: datapoint.rank}]})
                 }
                 else {
                     let points = linedict.get(key)?.points;
-                    points?.push({x: datapoint.timestamp, y: datapoint.rank});
+                    points?.push({x: new Date(datapoint.timestamp * 1000), y: datapoint.rank});
                 }
             }
         );
@@ -102,7 +102,15 @@ class Graph extends React.Component<Props, State>{
                 includeZero: false,
                 reversed: true,
                 minimum: 1
-            }]
+            }],
+            axisX: {
+                interval: 1,
+                intervalType: "day",
+                //valueFormatString: "MMM"
+            },
+            toolTip: {
+                shared: true
+            }
         }
         return (
             <div className="main">
