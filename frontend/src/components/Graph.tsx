@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { DataPoint } from '../data/types';
 import CanvasJSReact from '../lib/canvasjs.react';
 import '../App.css';
+import {decodeData} from '../data/accessapi'
 
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -10,19 +11,26 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 type Props = {
     dataset: DataPoint[];
+    datapromise: any;
 }
 
 //should probably use props for user control of graph
 type State = {
-
+    dataset: DataPoint[];
 }
 
 class Graph extends React.Component<Props, State>{
-    private displayDataList(){
-        return (
+    constructor(props: Props) {
+        super(props)
+        this.state ={
+            dataset: []
+        }
+    }
+    private displayDataList(show: boolean){
+        if (show) return (
             <div>
                 {
-                    this.props.dataset.map(
+                    this.state.dataset.map(
                         point => 
                         <p>
                             {point.team + ": " + point.playername + " Rank: " + point.rank + " Timestamp: " + point.timestamp}
@@ -31,6 +39,16 @@ class Graph extends React.Component<Props, State>{
                 }
             </div>
         );
+        return null
+
+        
+    }
+    componentDidMount() {
+        this.props.datapromise.then((res: any) => {
+            this.setState({
+                dataset: decodeData(res.data)
+            })
+        }).catch((err: any) => console.log(err));
     }
     private getExampleLines(): any {
         return [{
@@ -56,7 +74,7 @@ class Graph extends React.Component<Props, State>{
     }
     private getLines(): any {
         let linedict = new Map<string, {team: string, playername: string, points: {x: Date, y: number}[]}>();
-        this.props.dataset.forEach(
+        this.state.dataset.forEach(
             datapoint => {
                 let key = datapoint.team + "." + datapoint.playername;
                 if (!linedict.has(key)) {
@@ -129,7 +147,7 @@ class Graph extends React.Component<Props, State>{
                 <CanvasJSChart containerProps={containerProps} classname="graph" options = {options}
                     /* onRef = {ref => this.chart = ref} */
                 />
-                {this.displayDataList()}
+                {this.displayDataList(false)}
             </div>
             
         );
