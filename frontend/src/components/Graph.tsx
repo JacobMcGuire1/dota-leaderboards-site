@@ -88,34 +88,45 @@ class Graph extends React.Component<Props, State>{
     public render() {
         const options = {
             title: {
-              text: "Graph",
+              text: "",
+              fontColor: "white"
             },
+            theme: "dark1",
             animationEnabled: true,
             zoomenabled: true,
             backgroundColor: "#282c34",
             data: this.getLines(),
             axisY:[{
                 title: "Rank",
-                tickColor: "#000000",
-                labelFontColor: "#000000",
-                titleFontColor: "#000000",
+                labelFontColor: "white",
+                titleFontColor: "white",
                 includeZero: false,
                 reversed: true,
+                interval: 1,
                 minimum: 1
             }],
             axisX: {
                 interval: 1,
                 intervalType: "day",
+                labelFontColor: "white",
+                titleFontColor: "white",
                 //valueFormatString: "MMM"
+            },
+            legend: {
+                fontColor: "black",
             },
             toolTip: {
                 shared: true
             }
         }
+        const containerProps = {
+            height: "calc(100vh - 150px)",
+            width: "calc(100vw - 150px)",
+            margin: 10,
+          };
         return (
             <div className="main">
-                <p>This is the graph component.</p>
-                <CanvasJSChart classname="graph" options = {options}
+                <CanvasJSChart containerProps={containerProps} classname="graph" options = {options}
                     /* onRef = {ref => this.chart = ref} */
                 />
                 {this.displayDataList()}
