@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import Graph from './components/Graph'
 import {getRandomTestData} from './data/testdata'
-import {getTopPlayers, decodeData} from './data/accessapi'
+import {getTopPlayers, decodeData, getPlayerList} from './data/accessapi'
 import axios from "axios";
 
 function App() {
@@ -15,16 +15,22 @@ function App() {
   return (
     <div className="App">
       <div>
-        <Graph datapromise={getTopPlayers()} dataset={getData()}/>
+        <Graph datapromise={getAPIData()} dataset={getTestData()}/>
       </div>
     </div>
   );
 }
 
-function getData() {
+function getTestData() {
   //return getTopPlayers();
 
   return getRandomTestData(5, 5, 100);
+}
+
+function getAPIData() {
+  return getTopPlayers(20);
+
+  //return getPlayerList([["","Dendi"], ["","S4"]]);
 }
 
 export default App;

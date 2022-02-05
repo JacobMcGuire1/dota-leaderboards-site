@@ -134,7 +134,8 @@ class Graph extends React.Component<Props, State>{
                 fontColor: "black",
             },
             toolTip: {
-                shared: true
+                shared: true,
+                reversed: true
             }
         }
         const containerProps = {

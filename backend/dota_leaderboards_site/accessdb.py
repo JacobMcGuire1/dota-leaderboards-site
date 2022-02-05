@@ -13,4 +13,28 @@ def getTopRanks(count):
     cur.execute("select * from ranks where region = ? and rank < ? order by timestamp;", ("europe", arg))
     rows = cur.fetchall()
     rowjson = json.dumps(rows)
+    con.close()
     return rowjson
+
+def getPlayers(players):
+    con = sqlite3.connect(db_path)
+    cur = con.cursor()
+
+    playerstr = ""
+    argstuple = ("europe", )
+    for i in range (0, len(players)):
+        player = players[i]
+        team = player[0]
+        name = player[1]
+        if (i != 0): playerstr += " or"
+        playerstr += " name = ? "
+        argstuple = argstuple + (name,)
+    playerstr += " "
+
+    print(argstuple)
+    cur.execute("select * from ranks where region = ? and " + playerstr + " order by timestamp;", argstuple)
+    rows = cur.fetchall()
+    rowjson = json.dumps(rows)
+    con.close()
+    return rowjson
+

@@ -28,5 +28,6 @@ router = routers.DefaultRouter()
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('graph/', views.GraphView.as_view(), name='GraphView')
+    path('graph/top/', views.GraphView.as_view(), name='GraphView'),
+    path('graph/players/', views.Players.as_view(), name='Players')
 ]

@@ -1,8 +1,18 @@
 import axios from "axios";
 import {DataPoint} from './types'
 
-function getTopPlayers() {
-    return axios.get("/graph/");/*.then((res) => {
+
+function getTopPlayers(count: number) {
+    return axios.get("/graph/top?count=" + Number.toString());/*.then((res) => {
+        return decodeData(res.data);
+      })
+      .catch((err) => console.log(err));*/
+
+}
+
+function getPlayerList(players: [string, string][]) {
+    let playerjson = JSON.stringify(players);
+    return axios.get("/graph/players?list=" + playerjson);/*.then((res) => {
         return decodeData(res.data);
       })
       .catch((err) => console.log(err));*/
@@ -26,4 +36,4 @@ function decodeData(data: any) {
     return datapoints!;        
 }
 
-export {getTopPlayers, decodeData}
+export {getTopPlayers, decodeData, getPlayerList}
