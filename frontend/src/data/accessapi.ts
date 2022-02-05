@@ -3,7 +3,7 @@ import {DataPoint} from './types'
 
 
 function getTopPlayers(count: number) {
-    return axios.get("/graph/top?count=" + Number.toString());/*.then((res) => {
+    return axios.get("/graph/top?count=" + count.toString());/*.then((res) => {
         return decodeData(res.data);
       })
       .catch((err) => console.log(err));*/

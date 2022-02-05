@@ -28,9 +28,9 @@ function getTestData() {
 }
 
 function getAPIData() {
-  return getTopPlayers(20);
+  //return getTopPlayers(10);
 
-  //return getPlayerList([["","Dendi"], ["","S4"]]);
+  return getPlayerList([["","Saksa"], ["","Dendi"]]);
 }
 
 export default App;

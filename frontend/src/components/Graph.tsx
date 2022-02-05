@@ -120,7 +120,6 @@ class Graph extends React.Component<Props, State>{
                 titleFontColor: "white",
                 includeZero: false,
                 reversed: true,
-                interval: 1,
                 minimum: 1
             }],
             axisX: {
@@ -148,7 +147,7 @@ class Graph extends React.Component<Props, State>{
                 <CanvasJSChart containerProps={containerProps} classname="graph" options = {options}
                     /* onRef = {ref => this.chart = ref} */
                 />
-                {this.displayDataList(false)}
+                {this.displayDataList(true)}
             </div>
             
         );
