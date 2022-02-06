@@ -27,8 +27,8 @@ def getPlayers(players):
         team = player[0]
         name = player[1]
         if (i != 0): playerstr += " or"
-        playerstr += " name = ? "
-        argstuple = argstuple + (name,)
+        playerstr += " (name = ? and team = ?) "
+        argstuple = argstuple + (name, team)
     playerstr += " "
 
     print(argstuple)

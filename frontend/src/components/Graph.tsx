@@ -20,11 +20,13 @@ type State = {
 }
 
 class Graph extends React.Component<Props, State>{
+    chartRef: React.RefObject<any>;
     constructor(props: Props) {
         super(props)
         this.state ={
             dataset: []
         }
+        this.chartRef = React.createRef();
     }
     private displayDataList(show: boolean){
         if (show) return (
@@ -33,7 +35,7 @@ class Graph extends React.Component<Props, State>{
                     this.state.dataset.map(
                         point => 
                         <p>
-                            {point.team + "" + point.playername + " Rank: " + point.rank + " Timestamp: " + point.timestamp}
+                            {point.team + "." + point.playername + " Rank: " + point.rank + " Timestamp: " + point.timestamp}
                         </p>
                     )
                 }
@@ -49,6 +51,11 @@ class Graph extends React.Component<Props, State>{
                 dataset: decodeData(res.data)
             })
         }).catch((err: any) => console.log(err));
+        /*let chart = this.chartRef.current!;
+        if(chart.axisY[0].get("interval") < 1){
+            chart.axisY[0].set("interval", 1);  
+        }
+        chart.render();*/
     }
     private getExampleLines(): any {
         return [{
@@ -76,7 +83,7 @@ class Graph extends React.Component<Props, State>{
         let linedict = new Map<string, {team: string, playername: string, points: {x: Date, y: number}[]}>();
         this.state.dataset.forEach(
             datapoint => {
-                let key = datapoint.team + "" + datapoint.playername;
+                let key = (datapoint.team === "" ? "" : datapoint.team + ".") + datapoint.playername;
                 if (!linedict.has(key)) {
                     linedict.set(key, {team: datapoint.team, playername: datapoint.playername, points: [{x: new Date(datapoint.timestamp * 1000), y: datapoint.rank}]})
                 }
@@ -109,28 +116,22 @@ class Graph extends React.Component<Props, State>{
               text: "",
               fontColor: "white"
             },
-            theme: "dark1",
+            theme: "light2",
             animationEnabled: true,
             zoomEnabled: true,
-            backgroundColor: "#282c34",
             data: this.getLines(),
             axisY:[{
                 title: "Rank",
-                labelFontColor: "white",
-                titleFontColor: "white",
                 includeZero: false,
                 reversed: true,
-                minimum: 1
+                //minimum: 1
             }],
             axisX: {
                 interval: 1,
                 intervalType: "day",
-                labelFontColor: "white",
-                titleFontColor: "white",
                 //valueFormatString: "MMM"
             },
             legend: {
-                fontColor: "black",
             },
             toolTip: {
                 shared: true,
@@ -144,7 +145,7 @@ class Graph extends React.Component<Props, State>{
           };
         return (
             <div className="main">
-                <CanvasJSChart containerProps={containerProps} classname="graph" options = {options}
+                <CanvasJSChart onRef={(ref: any) => this.chartRef = ref} containerProps={containerProps} classname="graph" options = {options}
                     /* onRef = {ref => this.chart = ref} */
                 />
                 {this.displayDataList(true)}

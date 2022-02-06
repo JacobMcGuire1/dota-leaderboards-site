@@ -30,7 +30,7 @@ function getTestData() {
 function getAPIData() {
   //return getTopPlayers(10);
 
-  return getPlayerList([["","Saksa"], ["","Dendi"]]);
+  return getPlayerList([["","Saksa"], ["B8","Dendi"]]);
 }
 
 export default App;
