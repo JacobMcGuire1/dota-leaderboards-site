@@ -1,7 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Graph from './components/Graph'
+//import Graph from './components/Graph'
+import GraphContainer from './components/GraphContainer'
 import {getRandomTestData} from './data/testdata'
 import {getTopPlayers, decodeData, getPlayerList} from './data/accessapi'
 import axios from "axios";
@@ -15,7 +16,7 @@ function App() {
   return (
     <div className="App">
       <div>
-        <Graph datapromise={getAPIData()} dataset={getTestData()}/>
+        <GraphContainer/>
       </div>
     </div>
   );

@@ -12,6 +12,7 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 type Props = {
     dataset: DataPoint[];
     datapromise: any;
+    showdatalist: boolean;
 }
 
 //should probably use props for user control of graph
@@ -28,8 +29,8 @@ class Graph extends React.Component<Props, State>{
         }
         this.chartRef = React.createRef();
     }
-    private displayDataList(show: boolean){
-        if (show) return (
+    private displayDataList(){
+        if (this.props.showdatalist) return (
             <div>
                 {
                     this.state.dataset.map(
@@ -148,7 +149,7 @@ class Graph extends React.Component<Props, State>{
                 <CanvasJSChart onRef={(ref: any) => this.chartRef = ref} containerProps={containerProps} classname="graph" options = {options}
                     /* onRef = {ref => this.chart = ref} */
                 />
-                {this.displayDataList(true)}
+                {this.displayDataList()}
             </div>
             
         );

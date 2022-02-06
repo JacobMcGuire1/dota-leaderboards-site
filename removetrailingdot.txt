@@ -1,0 +1,7 @@
+select team from ranks where team like '%.'
+
+
+
+UPDATE ranks
+SET team = SUBSTRING(team, 1, LENGTH(team)-1)
+where team like '%.';
