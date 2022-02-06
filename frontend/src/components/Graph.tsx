@@ -33,7 +33,7 @@ class Graph extends React.Component<Props, State>{
                     this.state.dataset.map(
                         point => 
                         <p>
-                            {point.team + ": " + point.playername + " Rank: " + point.rank + " Timestamp: " + point.timestamp}
+                            {point.team + "" + point.playername + " Rank: " + point.rank + " Timestamp: " + point.timestamp}
                         </p>
                     )
                 }
@@ -76,7 +76,7 @@ class Graph extends React.Component<Props, State>{
         let linedict = new Map<string, {team: string, playername: string, points: {x: Date, y: number}[]}>();
         this.state.dataset.forEach(
             datapoint => {
-                let key = datapoint.team + "." + datapoint.playername;
+                let key = datapoint.team + "" + datapoint.playername;
                 if (!linedict.has(key)) {
                     linedict.set(key, {team: datapoint.team, playername: datapoint.playername, points: [{x: new Date(datapoint.timestamp * 1000), y: datapoint.rank}]})
                 }
