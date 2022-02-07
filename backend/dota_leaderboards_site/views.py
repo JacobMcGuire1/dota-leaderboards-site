@@ -19,14 +19,15 @@ class GraphView(APIView):
  ##   def get_serializer_class(any):
        # return None
    def get(self, request, format=None):
-      print(request.query_params)
-      json = getTopRanks(int(request.query_params["count"]))
-      return Response([json])
+      count = int(request.query_params["count"])
+      region = request.query_params["region"]
+      jsonstr = getTopRanks(count, region)
+      
+      return Response([jsonstr])
         
 class Players(APIView):
    def get(self, request, format=None):
-      print(request.query_params)
       playerlist = json.loads(request.query_params["list"])
-      print(playerlist[0])
-      jsonstr = getPlayers(playerlist)
+      region = request.query_params["region"]
+      jsonstr = getPlayers(playerlist, region)
       return Response([jsonstr])

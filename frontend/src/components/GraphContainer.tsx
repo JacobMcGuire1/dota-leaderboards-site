@@ -35,10 +35,10 @@ class GraphContainer extends React.Component<{}, State> {
         }
     }
     private getTopNRanks(){
-        return getTopPlayers(10);
+        return getTopPlayers(this.state.n, this.state.region);
     }
     private getPlayerListData(){
-        return getPlayerList([["","Saksa"], ["B8","Dendi"]]);
+        return getPlayerList([["","Saksa"], ["B8","Dendi"]], this.state.region);
     }
     private getGraphData(){
         switch(this.state.apimode) {

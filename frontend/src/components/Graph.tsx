@@ -42,7 +42,9 @@ class Graph extends React.Component<Props, State>{
                 }
             </div>
         );
-        return null
+        return (
+            <div></div>
+        );
 
         
     }
@@ -51,12 +53,18 @@ class Graph extends React.Component<Props, State>{
             this.setState({
                 dataset: decodeData(res.data)
             })
+            this.chartRef.current!.render();
         }).catch((err: any) => console.log(err));
-        /*let chart = this.chartRef.current!;
-        if(chart.axisY[0].get("interval") < 1){
-            chart.axisY[0].set("interval", 1);  
+    }
+    
+    componentDidUpdate(prevProps: Props, prevState: State) {
+        if (prevProps.datapromise !== this.props.datapromise){
+            this.props.datapromise.then((res: any) => {
+                this.setState({
+                    dataset: decodeData(res.data)
+                })
+            }).catch((err: any) => console.log(err));
         }
-        chart.render();*/
     }
     private getExampleLines(): any {
         return [{
@@ -144,6 +152,7 @@ class Graph extends React.Component<Props, State>{
             width: "calc(100vw - 150px)",
             margin: 10,
           };
+        console.log("Drawing graph");
         return (
             <div className="main">
                 <CanvasJSChart onRef={(ref: any) => this.chartRef = ref} containerProps={containerProps} classname="graph" options = {options}

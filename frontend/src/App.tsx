@@ -22,16 +22,4 @@ function App() {
   );
 }
 
-function getTestData() {
-  //return getTopPlayers();
-
-  return getRandomTestData(5, 5, 100);
-}
-
-function getAPIData() {
-  //return getTopPlayers(10);
-
-  return getPlayerList([["","Saksa"], ["B8","Dendi"]]);
-}
-
 export default App;

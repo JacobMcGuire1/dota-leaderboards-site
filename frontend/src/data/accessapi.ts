@@ -2,17 +2,17 @@ import axios from "axios";
 import {DataPoint} from './types'
 
 
-function getTopPlayers(count: number) {
-    return axios.get("/graph/top?count=" + count.toString());/*.then((res) => {
+function getTopPlayers(count: number, region: string) {
+    return axios.get("/graph/top?count=" + count.toString() + "&region=" + region);/*.then((res) => {
         return decodeData(res.data);
       })
       .catch((err) => console.log(err));*/
 
 }
 
-function getPlayerList(players: [string, string][]) {
+function getPlayerList(players: [string, string][], region: string) {
     let playerjson = JSON.stringify(players);
-    return axios.get("/graph/players?list=" + playerjson);/*.then((res) => {
+    return axios.get("/graph/players?list=" + playerjson + "&region=" + region);/*.then((res) => {
         return decodeData(res.data);
       })
       .catch((err) => console.log(err));*/
