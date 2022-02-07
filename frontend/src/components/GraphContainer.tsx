@@ -63,7 +63,7 @@ class GraphContainer extends React.Component<{}, State> {
             <label>
                     <input type="radio" value={value} checked={
                         // @ts-ignore
-                        this.state[stateproperty as any] === value} onChange={(event: any) => this.onValueChange(event, stateproperty)}/>
+                        this.state[stateproperty] == value} onChange={(event: any) => this.onValueChange(event, stateproperty)}/>
                     {displayname}
             </label>
         );
@@ -75,6 +75,11 @@ class GraphContainer extends React.Component<{}, State> {
                 {this.generateRadial("region", Region.Americas, "Americas")}
                 {this.generateRadial("region", Region.SEA, "South East Asia")}
                 {this.generateRadial("region", Region.China, "China")}
+
+                <br/>
+
+                {this.generateRadial("apimode", APIMode.PlayerList, "Chosen Players")}
+                {this.generateRadial("apimode", APIMode.TopN, "Top N Players")}
                 {/*<label>
                     <input type="radio" value={Region.Americas} checked={this.state.region === Region.Americas} onChange={(event) => this.onValueChange(event)}/>
                     Americas
