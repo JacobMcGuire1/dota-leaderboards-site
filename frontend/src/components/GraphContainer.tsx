@@ -8,8 +8,8 @@ import { getTextOfJSDocComment } from 'typescript';
 import { AnyRecord } from 'dns';
 
 enum APIMode {
-    PlayerList,
-    TopN,
+    PlayerList = "0",
+    TopN = "1",
 }
 
 enum Region {
@@ -40,6 +40,48 @@ class GraphContainer extends React.Component<{}, State> {
     private getPlayerListData(){
         return getPlayerList([["","Saksa"], ["B8","Dendi"]], this.state.region);
     }
+    
+    private submitOptionsForm() {
+        
+    }
+
+    //converts type to string (BAD)
+    private onValueChange(event: any, stateproperty: string) {
+
+        let value = event.target.value;
+
+        // @ts-ignore
+        this.setState({
+            [stateproperty]: value
+        });
+    }
+    private generateRadial(stateproperty: string, value: any, displayname: string) {
+        return (
+            <label>
+                <input type="radio" value={value} checked={
+                    // @ts-ignore
+                    this.state[stateproperty] == value} onChange={(event: any) => this.onValueChange(event, stateproperty)}/>
+                {displayname}
+            </label>
+        );
+    }
+    private getAPISpecificForm(){
+        switch(this.state.apimode) {
+            case APIMode.PlayerList:
+                return (
+                    <label>
+
+                    </label>
+                );
+            case APIMode.TopN:
+                return (
+                    <label>
+                        <input type="number" value={this.state.n} onChange={(event: any) => this.setState({n: event.target.value})}/>
+                        Number of Players: 
+                    </label>
+                );
+        }
+    }
     private getGraphData(){
         switch(this.state.apimode) {
             case APIMode.PlayerList:
@@ -47,26 +89,6 @@ class GraphContainer extends React.Component<{}, State> {
             case APIMode.TopN:
                 return this.getTopNRanks();
         }
-    }
-    private submitOptionsForm() {
-        
-    }
-    private onValueChange(event: any, stateproperty: string) {
-        // @ts-ignore
-        this.setState({
-            [stateproperty]: event.target.value
-        });
-    }
-    private generateRadial(stateproperty: string, value: any, displayname: string) {
-        return (
-            
-            <label>
-                    <input type="radio" value={value} checked={
-                        // @ts-ignore
-                        this.state[stateproperty] == value} onChange={(event: any) => this.onValueChange(event, stateproperty)}/>
-                    {displayname}
-            </label>
-        );
     }
     private getOptionsForm() {
         return (
@@ -80,6 +102,10 @@ class GraphContainer extends React.Component<{}, State> {
 
                 {this.generateRadial("apimode", APIMode.PlayerList, "Chosen Players")}
                 {this.generateRadial("apimode", APIMode.TopN, "Top N Players")}
+
+                <br/>
+
+                {this.getAPISpecificForm()}
                 {/*<label>
                     <input type="radio" value={Region.Americas} checked={this.state.region === Region.Americas} onChange={(event) => this.onValueChange(event)}/>
                     Americas
